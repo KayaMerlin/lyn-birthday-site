@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Lyn 💜</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nunito:wght@400;700&display=swap');
+    :root {
+      --color-deep-purple: #1a0933;
+      --color-coraline: #3a0ca3;
+      --color-gecko: #4ade80;
+      --color-sonic-gold: #ffd700;
+      --color-lynn: #7209b7;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: url("arquivos/background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .creepy-font {
+      font-family: 'Creepster', cursive;
+    }
+    .coraline-button {
+      background: linear-gradient(135deg, var(--color-coraline) 0%, #2e0854 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.2);
+    }
+    .coraline-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.2);
+    }
+    .button-glow {
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(106,60,181,0.6); }
+      to { box-shadow: 0 0 20px rgba(106,60,181,0.9), 0 0 30px rgba(106,60,181,0.5); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .floating { animation: float 3s ease-in-out infinite; }
+    #text-bubble {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 50;
+    }
+    #text-bubble.visible { opacity: 1; }
+    .element {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      opacity: 0.9;
+    }
+    #el-coraline { top: 10%; left: 5%; animation: float 4s ease-in-out infinite; }
+    #el-sonic    { top: 20%; right: 10%; animation: float 5s ease-in-out infinite; }
+    #el-gekko    { bottom: 20%; left: 15%; animation: float 6s ease-in-out infinite; }
+    #el-genshin  { bottom: 15%; right: 5%; animation: float 4.5s ease-in-out infinite; }
+    #custom-img {
+      width: 120px;
+      display: block;
+      margin: 1rem auto;
+      animation: float 3s ease-in-out infinite;
+    }
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      padding: 1rem;
+      text-align: center;
+    }
+    .screen.active { display: flex; }
+    .screen h1 { color: #d8b4fe; }
+    .screen p { color: #e9d5ff; max-width: 90%; margin-top: 1rem; }
+    input {
+      width: 100%; padding: 0.75rem; border-radius: 0.5rem;
+      background: #4c1d95; border: 1px solid #a855f7;
+      color: #fff; margin-top: 1rem;
+    }
+    .key-container {
+      background: rgba(20,10,30,0.8);
+      border: 2px solid var(--color-lynn);
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+    .music-controls {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+    }
+    .music-button {
+      font-family: 'Amatic SC', cursive;
+      background-color: #1a1a1a;
+      color: #f0eada;
+      border: none;
+      font-size: 20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0px 8px 15px rgba(0,0,0,0.6), inset 0px 2px 5px rgba(0,0,0,0.5), inset 0px -5px 10px rgba(50,50,50,0.3);
+    }
+    .music-button:hover {
+      background-color: #252525;
+      box-shadow: 0px 10px 20px rgba(0,0,0,0.7), inset 0px 2px 5px rgba(0,0,0,0.4), inset 0px -5px 10px rgba(70,70,70,0.4), 0 0 18px rgba(255,215,0,0.35);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" src="arquivos/coraline.mp3" loop></audio>
+  <div class="music-controls">
+    <button class="music-button" onclick="toggleMusic()">🔊</button>
+  </div>
+  <div id="text-bubble"></div>
+
+  <img id="el-coraline" class="element" src="arquivos/coraline.png" alt="Coraline">
+  <img id="el-sonic" class="element" src="arquivos/sonic.gif" alt="Sonic">
+  <img id="el-gekko" class="element" src="arquivos/gekko.gif" alt="Gekko">
+  <img id="el-genshin" class="element" src="arquivos/genshin.png" alt="Genshin Impact">
+
+  <div id="login-screen" class="screen active">
+    <h1 class="creepy-font text-5xl mb-2">Feliz Aniversário, Lyn 💜</h1>
+    <img id="custom-img" src="arquivos/logo.png" alt="Logo">
+    <p>Digite qualquer coisa para começar sua jornada...</p>
+    <div class="w-full max-w-xs">
+      <input id="password-field" type="password" placeholder="Digite a senha...">
+      <button id="enter-button" class="coraline-button w-full mt-4 px-6 py-3 rounded-lg">Entrar</button>
+    </div>
+  </div>
+
+  <div id="birthday-screen" class="screen">
+    <h1 class="creepy-font text-5xl mb-4">Feliz Aniversário, Lyn 💜!</h1>
+    <p>Abra seu presente!</p>
+    <button id="reveal-button" class="coraline-button button-glow px-6 py-3 mt-4 rounded-lg">Revelar Presente</button>
+  </div>
+
+  <div id="gift-screen" class="screen">
+    <h1 class="creepy-font text-4xl mb-4">Seu Presente!</h1>
+    <div class="key-container mb-4">
+      <p>Agora você tem acesso à minha biblioteca da Steam inteira 💖</p>
+      <p class="text-purple-200 mt-2">Jogue o que quiser, como se fosse tudo seu 😌</p>
+    </div>
+    <p class="text-lg">Te amo s2 — de seu enchedor de saco.</p>
+    <p class="text-sm text-purple-300 mt-2">Você é importante pra mim, espero que não morra 😌</p>
+  </div>
+
+  <script>
+    const pw = document.getElementById('password-field');
+    const enterBtn = document.getElementById('enter-button');
+    const revealBtn = document.getElementById('reveal-button');
+    const login = document.getElementById('login-screen');
+    const bday = document.getElementById('birthday-screen');
+    const gift = document.getElementById('gift-screen');
+    const bubble = document.getElementById('text-bubble');
+    const music = document.getElementById('bg-music');
+
+    function showBubble(text) {
+      bubble.textContent = text;
+      bubble.classList.add('visible');
+      setTimeout(() => bubble.classList.remove('visible'), 3000);
+    }
+
+    function handleLogin() {
+      const v = pw.value.trim().toLowerCase();
+      if (v === 'wybie') showBubble('Oi minha fofinhaannnn ❤️');
+      if (v === 'aicomoeusoubobinha') showBubble('DEFUSA A SPIKE 💥');
+      login.classList.remove('active');
+      bday.classList.add('active');
+      music.play();
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    enterBtn.addEventListener('click', handleLogin);
+    pw.addEventListener('keypress', e => e.key === 'Enter' && handleLogin());
+
+    revealBtn.addEventListener('click', () => {
+      bday.classList.remove('active');
+      gift.classList.add('active');
+    });
+  </script>
+</body>
+</html>
