@@ -35,6 +35,9 @@
     .coraline-button {
       background: linear-gradient(135deg, var(--color-coraline) 0%, #2e0854 100%);
       box-shadow: 0 4px 15px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.2);
+      cursor: pointer;
+      border: none;
+      color: white;
     }
     .coraline-button:hover {
       transform: translateY(-2px);
@@ -51,7 +54,9 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-    .floating { animation: float 3s ease-in-out infinite; }
+    .floating { 
+      animation: float 3s ease-in-out infinite; 
+    }
     #text-bubble {
       position: fixed;
       bottom: 20px;
@@ -66,7 +71,9 @@
       transition: opacity 0.3s;
       z-index: 50;
     }
-    #text-bubble.visible { opacity: 1; }
+    #text-bubble.visible { 
+      opacity: 1; 
+    }
     .element {
       position: absolute;
       width: 80px;
@@ -77,12 +84,6 @@
     #el-sonic    { top: 20%; right: 10%; animation: float 5s ease-in-out infinite; }
     #el-gekko    { bottom: 20%; left: 15%; animation: float 6s ease-in-out infinite; }
     #el-genshin  { bottom: 15%; right: 5%; animation: float 4.5s ease-in-out infinite; }
-    #custom-img {
-      width: 120px;
-      display: block;
-      margin: 1rem auto;
-      animation: float 3s ease-in-out infinite;
-    }
     .screen {
       display: none;
       flex-direction: column;
@@ -97,19 +98,25 @@
       padding: 1rem;
       text-align: center;
     }
-    .screen.active { display: flex; }
-    .screen h1 { color: #d8b4fe; }
-    .screen p { color: #e9d5ff; max-width: 90%; margin-top: 1rem; }
-    input {
-      width: 100%; padding: 0.75rem; border-radius: 0.5rem;
-      background: #4c1d95; border: 1px solid #a855f7;
-      color: #fff; margin-top: 1rem;
+    .screen.active { 
+      display: flex; 
     }
-    .key-container {
-      background: rgba(20,10,30,0.8);
-      border: 2px solid var(--color-lynn);
-      padding: 1rem;
+    .screen h1 { 
+      color: #d8b4fe; 
+    }
+    .screen p { 
+      color: #e9d5ff; 
+      max-width: 90%; 
+      margin-top: 1rem; 
+    }
+    input {
+      width: 100%; 
+      padding: 0.75rem; 
       border-radius: 0.5rem;
+      background: #4c1d95; 
+      border: 1px solid #a855f7;
+      color: #fff; 
+      margin-top: 1rem;
     }
     .music-controls {
       position: fixed;
@@ -144,60 +151,85 @@
   </div>
   <div id="text-bubble"></div>
 
+  <!-- Elementos flutuantes -->
   <img id="el-coraline" class="element" src="arquivos/coraline.png" alt="Coraline">
   <img id="el-sonic" class="element" src="arquivos/sonic.gif" alt="Sonic">
   <img id="el-gekko" class="element" src="arquivos/gekko.gif" alt="Gekko">
   <img id="el-genshin" class="element" src="arquivos/genshin.png" alt="Genshin Impact">
 
-  <div id="login-screen" class="screen active">
-    <h1 class="creepy-font text-5xl mb-2">Feliz Aniversário, Lyn 💜</h1>
-    <img id="custom-img" src="arquivos/logo.png" alt="Logo">
-    <p>Digite qualquer coisa para começar sua jornada...</p>
-    <div class="w-full max-w-xs">
-      <input id="password-field" type="password" placeholder="Digite a senha...">
-      <button id="enter-button" class="coraline-button w-full mt-4 px-6 py-3 rounded-lg">Entrar</button>
+  <!-- Tela do Pedido de Namoro -->
+  <div id="love-screen" class="screen active">
+    <h1 class="creepy-font text-5xl text-purple-300 mb-6">Quer namorar comigo?</h1>
+    <div class="flex gap-4">
+      <button id="yes-button" class="coraline-button px-6 py-3 rounded-lg text-xl">Sim 💜</button>
+      <button id="no-button" class="coraline-button px-6 py-3 rounded-lg text-xl">Não 😒</button>
     </div>
   </div>
 
-  <div id="birthday-screen" class="screen">
-    <h1 class="creepy-font text-5xl mb-4">Feliz Aniversário, Lyn 💜!</h1>
-    <p>Abra seu presente!</p>
-    <button id="reveal-button" class="coraline-button button-glow px-6 py-3 mt-4 rounded-lg">Revelar Presente</button>
+  <!-- Menu de Widgets -->
+  <div id="widget-screen" class="screen">
+    <h1 class="text-3xl text-purple-200 mb-6 creepy-font">Escolha o que explorar 💫</h1>
+    <div class="flex flex-col gap-4 max-w-sm w-full">
+      <button onclick="goTo('story-screen')" class="coraline-button px-6 py-3 rounded-lg">📘 História Interativa</button>
+      <button onclick="goTo('terminal-screen')" class="coraline-button px-6 py-3 rounded-lg">💻 Terminal</button>
+      <button onclick="goTo('gallery-screen')" class="coraline-button px-6 py-3 rounded-lg">📷 Galeria (em breve)</button>
+    </div>
   </div>
 
-  <div id="gift-screen" class="screen">
-    <h1 class="creepy-font text-4xl mb-4">Seu Presente!</h1>
-    <div class="key-container mb-4">
-      <p>Agora você tem acesso à minha biblioteca da Steam inteira 💖</p>
-      <p class="text-purple-200 mt-2">Jogue o que quiser, como se fosse tudo seu 😌</p>
+  <!-- História Interativa -->
+  <div id="story-screen" class="screen">
+    <h1 class="creepy-font text-4xl mb-2">A Porta Roxa</h1>
+    <p class="text-purple-100">Você acorda em um lugar estranho. Clove e Gekko estão discutindo sobre uma porta proibida. Um terminal velho emite sons... e você sente que está sendo observada por uma sombra com olhos azuis e vermelhos.</p>
+    <p class="mt-4 text-purple-300 italic">"Você está melhorando muito no Valorant... falta pouco pra gente rankear juntos 😏"</p>
+    <div class="flex gap-4 mt-6">
+      <button onclick="goTo('ending-blue')" class="coraline-button px-4 py-2 rounded-lg">Seguir luz azul</button>
+      <button onclick="goTo('ending-red')" class="coraline-button px-4 py-2 rounded-lg">Seguir sombra vermelha</button>
     </div>
-    <p class="text-lg">Te amo s2 — de seu enchedor de saco.</p>
-    <p class="text-sm text-purple-300 mt-2">Você é importante pra mim, espero que não morra 😌</p>
+  </div>
+
+  <!-- Final Azul -->
+  <div id="ending-blue" class="screen">
+    <h1 class="creepy-font text-4xl mb-2">Final Azul (Sonic)</h1>
+    <p class="text-purple-200">Você corre livre. Gekko acena e Clove sorri. Tudo parece em paz. Uma voz diz:</p>
+    <p class="italic mt-4 text-purple-300">"E agora vai me tratar bem."</p>
+    <button onclick="goTo('widget-screen')" class="coraline-button px-4 py-2 rounded-lg mt-6">Voltar ao Menu</button>
+  </div>
+
+  <!-- Final Vermelho -->
+  <div id="ending-red" class="screen">
+    <h1 class="creepy-font text-4xl mb-2">Final Vermelho (Shadow)</h1>
+    <p class="text-purple-300">O terminal explode em glitches. Kaya.exe olha nos seus olhos e diz:</p>
+    <p class="italic mt-4">"Você sabe que eu sou o bug mais insistente do seu código..."</p>
+    <p class="mt-2 text-sm text-purple-400">Final desbloqueado: você aceita o caos 😈</p>
+    <button onclick="goTo('widget-screen')" class="coraline-button px-4 py-2 rounded-lg mt-6">Voltar ao Menu</button>
+  </div>
+
+  <!-- Terminal -->
+  <div id="terminal-screen" class="screen bg-black text-green-400 font-mono">
+    <h1 class="text-xl mb-4">Terminal Kaya.exe</h1>
+    <p>Digite um comando:</p>
+    <input id="terminal-input" type="text" placeholder="ex: sair" class="bg-black border border-green-500 mt-2 p-2 w-full max-w-xs text-green-300 rounded">
+    <div id="terminal-output" class="mt-4 text-sm"></div>
+    <button onclick="goTo('widget-screen')" class="coraline-button px-4 py-2 rounded-lg mt-6">Voltar ao Menu</button>
+  </div>
+
+  <!-- Galeria -->
+  <div id="gallery-screen" class="screen">
+    <h1 class="text-3xl text-pink-300 mb-2 creepy-font">Galeria</h1>
+    <p class="text-purple-100">Aqui vai ter as nossas fotos mais lindas 💕</p>
+    <p class="text-sm text-purple-400 mt-2">A galeria está em construção... mas a saudade já tá pronta.</p>
+    <button onclick="goTo('widget-screen')" class="coraline-button px-4 py-2 rounded-lg mt-6">Voltar ao Menu</button>
   </div>
 
   <script>
-    const pw = document.getElementById('password-field');
-    const enterBtn = document.getElementById('enter-button');
-    const revealBtn = document.getElementById('reveal-button');
-    const login = document.getElementById('login-screen');
-    const bday = document.getElementById('birthday-screen');
-    const gift = document.getElementById('gift-screen');
     const bubble = document.getElementById('text-bubble');
     const music = document.getElementById('bg-music');
-
+    
+    // Funções utilitárias
     function showBubble(text) {
       bubble.textContent = text;
       bubble.classList.add('visible');
       setTimeout(() => bubble.classList.remove('visible'), 3000);
-    }
-
-    function handleLogin() {
-      const v = pw.value.trim().toLowerCase();
-      if (v === 'wybie') showBubble('Oi minha fofinhaannnn ❤️');
-      if (v === 'aicomoeusoubobinha') showBubble('DEFUSA A SPIKE 💥');
-      login.classList.remove('active');
-      bday.classList.add('active');
-      music.play();
     }
 
     function toggleMusic() {
@@ -208,12 +240,45 @@
       }
     }
 
-    enterBtn.addEventListener('click', handleLogin);
-    pw.addEventListener('keypress', e => e.key === 'Enter' && handleLogin());
+    function goTo(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
 
-    revealBtn.addEventListener('click', () => {
-      bday.classList.remove('active');
-      gift.classList.add('active');
+    // Pedido de namoro interativo
+    const yesBtn = document.getElementById('yes-button');
+    const noBtn = document.getElementById('no-button');
+    let noCount = 0;
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+      yesBtn.style.fontSize = `${1 + noCount * 0.4}rem`;
+      yesBtn.style.padding = `${1 + noCount * 0.2}rem ${2 + noCount * 0.3}rem`;
+      if (noCount > 3) showBubble('Tenta fugir não 🐍');
+    });
+
+    yesBtn.addEventListener('click', () => {
+      goTo('widget-screen');
+    });
+
+    // Terminal
+    const inputTerminal = document.getElementById('terminal-input');
+    const outputTerminal = document.getElementById('terminal-output');
+
+    inputTerminal.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
+        const value = inputTerminal.value.trim().toLowerCase();
+        if (value === 'sair') {
+          outputTerminal.innerHTML = `
+            <p>&gt; Quando vamos sair?</p>
+            <p>&gt; Sinto saudade sua.</p>
+            <p class="text-purple-300 mt-2 italic">"E agora vai me tratar bem."</p>
+          `;
+        } else {
+          outputTerminal.innerHTML = `<p>&gt; Comando '${value}' não reconhecido. Você inventa moda né?</p>`;
+        }
+        inputTerminal.value = '';
+      }
     });
   </script>
 </body>
